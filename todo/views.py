@@ -27,3 +27,12 @@ def delete_task(request, task_id):
     
     task.delete()
     return redirect('todo:home')
+
+def add_task(request):
+    if request.method == 'POST':
+        task_text = request.POST.get('task')
+        if task_text:
+            Task.objects.create(task=task_text)
+        return redirect('todo:home')  # change to your list view name
+
+    return render(request, 'todo/add.html')  # template name
