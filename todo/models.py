@@ -57,3 +57,24 @@ class Task(models.Model):
         else:
             return self.published_at()
 
+    
+    def updated_since(self):
+        now = datetime.now(timezone.utc)
+        diff = now - self.updated_at
+
+        seconds = int(diff.total_seconds())
+        minutes = seconds // 60
+        hours = minutes // 60
+        days = diff.days
+
+        if seconds < 60:
+            # return f'{seconds} second{"s" if seconds != 1 else ""}'
+            return f"A l'instant"
+        elif minutes < 60:
+            return f'{minutes} minute{"s" if minutes != 1 else ""}'
+        elif hours < 24:
+            return f'{hours} hour{"s" if hours != 1 else ""}'
+        elif days < 3:
+            return f'{days} day{"s" if days != 1 else ""}'
+        else:
+            return self.published_at()
