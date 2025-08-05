@@ -1,6 +1,12 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 from .models import Task
 from .forms import TaskForm
+from project import settings
+
+def show(request):
+    print(f'{settings.DEBUG} is new ')
+
+
 
 def edit_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
