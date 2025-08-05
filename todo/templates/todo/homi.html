@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>To-Do List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-3xl font-bold mb-6">To-Do List</h2>
+
+        <div class="mb-4 space-x-4">
+            <a href="{% url 'admin:index' %}" class="text-blue-600 hover:underline text-lg font-semibold">Admin</a>
+            <a href="{% url 'todo:add_task' %}" class="text-green-600 hover:underline text-lg font-semibold">Add a new task</a>
+        </div>
+
+        {% for task in tasks %}
+            <div class="bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center">
+                <div>
+                    <h5 class="text-xl font-medium">{{ task.created_at }}</h5>
+                    {% if task.completed %}
+                        <span class="inline-block bg-green-200 text-green-800 text-sm px-3 py-1 rounded-full mt-2">Done</span>
+                    {% else %}
+                        <span class="inline-block bg-yellow-200 text-yellow-800 text-sm px-3 py-1 rounded-full mt-2">Pending</span>
+                    {% endif %}
+                </div>
+                <div class="space-x-2">
+                    <a href="{% url 'todo:update_task' task.id %}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-1 px-3 rounded">Update</a>
+                    <a href="{% url 'todo:delete_task' task.id %}" class="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-1 px-3 rounded">Delete</a>
+                    {% if not task.completed %}
+                        <a href="{% url 'todo:mark_done' task.id %}" class="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold py-1 px-3 rounded">Mark as Done</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-gray-600">No tasks yet.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

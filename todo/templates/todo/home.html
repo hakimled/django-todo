@@ -12,6 +12,8 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">To-Do List</h2>
+        <H2> <a href="{% url 'admin:index' %}">Admin</a> </H2>
+        <H2> <a href="{% url 'todo:add_task' %}">Add a new task</a> </H2>
 
         {% for task in tasks %}
             <div class="card mb-3">
@@ -28,7 +30,7 @@
 
 
                         <!-- Replace 'update_task', 'delete_task', 'mark_done' with your actual view names -->
-                        <a href="" class="btn btn-primary btn-sm">Update</a>
+                        <a href="{% url 'todo:update_task' task.id %}" class="btn btn-primary btn-sm">Update</a>
                         <a href="{% url 'todo:delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
                         {% if not task.completed %}
                            <a href="{% url 'todo:mark_done' task.id %}" class="btn btn-success btn-sm">Mark as Done</a>

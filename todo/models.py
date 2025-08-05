@@ -1,4 +1,5 @@
 from django.db import models
+from project import settings
 
 # Create your models here.
 class Task(models.Model):
@@ -13,4 +14,12 @@ class Task(models.Model):
     def __str__(self):
         return f'({self.task}) created on {self.created_at}'
     
-     
+    def published_at(self):
+        months = [None, 'Janvier', 'Fevrier', 'Mars', 'Avril',
+                  'Mai', 'Juin','Juillet','Aout', 'Septembre',
+                  'Octobre', 'Novembre', 'Decembre']
+        month = self.created_at.month
+        
+        return f'{self.created_at.day} {months[month]} {self.created_at.year}'
+        
+    
